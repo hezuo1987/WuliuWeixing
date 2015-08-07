@@ -41,7 +41,7 @@ namespace WeixingMVC.Controllers
         {
             if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
-                return Content( MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token)); //返回随机字符串则表示验证通过
+                return Content(Senparc.Weixin.MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token)); //返回随机字符串则表示验证通过
             }
             else
             {
