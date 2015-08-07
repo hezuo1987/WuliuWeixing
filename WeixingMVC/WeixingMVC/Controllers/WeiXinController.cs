@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities.Request;
 
-namespace Senparc.Weixin.MP.Sample.Controllers
+namespace WeixingMVC.Controllers
 {
     using Senparc.Weixin.MP.MessageHandlers;
     using Senparc.Weixin.MP.Entities;
@@ -19,6 +19,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
     using Senparc.Weixin.MP.Sample.CommonService;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+    using Senparc.Weixin.MP;
 
     public partial class WeixinController : Controller
     {
