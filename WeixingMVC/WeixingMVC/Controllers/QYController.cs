@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Elmah;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers;
 using Senparc.Weixin.QY.Entities;
@@ -39,16 +40,43 @@ namespace WeixingMVC.Controllers
                 echostr);
             if (verifyUrl != null)
             {
-                var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/App_Data/error.txt"));
-                fileStream.Write(Encoding.Default.GetBytes(verifyUrl), 0, Encoding.Default.GetByteCount(verifyUrl));
-                fileStream.Close();
+                string querystr = "\r\n";
+                Error error = new Error();
+                error.Message = "微信企业版号验证成功";
+                error.HostName = Request.Url.Host;
+                error.StatusCode = 100;
+                error.Time = DateTime.Now;
+                error.User = Environment.UserName;
+                error.Type = "微信企业版号";
+                querystr += "Token:" + Token + ",msg_signature:" + msg_signature + ",echostr:" + echostr+",verifyUrl:"+verifyUrl;
+                error.Detail = "" + querystr;
+                error.Source = "QY_Controller";
+                Elmah.ErrorLog.Default.Log(error);
+                //创建一个异常并写入错误日志，无法自定义错误的类型
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new Exception("创建一个异常并写入错误日志" + querystr));
+
+
                 return Content(verifyUrl); //返回解密后的随机字符串则表示验证通过
             }
             else
             {
-                var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/App_Data/error.txt"));
-                fileStream.Write(Encoding.Default.GetBytes(verifyUrl), 0, Encoding.Default.GetByteCount(verifyUrl));
-                fileStream.Close();
+                //var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/App_Data/error.txt"));
+                //fileStream.Write(Encoding.Default.GetBytes(verifyUrl), 0, Encoding.Default.GetByteCount(verifyUrl));
+                //fileStream.Close();
+                string querystr = "\r\n";
+                Error error = new Error();
+                error.Message = "THIS IS TEST  使用Elmah的Error对象";
+                error.HostName = Request.Url.Host;
+                error.StatusCode = 100;
+                error.Time = DateTime.Now;
+                error.User = Environment.UserName;
+                error.Type = "Elmah 自定义类型";
+                error.Detail = "THIS IS TEST  ，创建一个Elmah的Error对象并写错误日志 但没有Server Variables，cookie等信息" + querystr;
+                error.Source = "Page_Load";
+                Elmah.ErrorLog.Default.Log(error);
+
+                //创建一个异常并写入错误日志，无法自定义错误的类型
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new Exception("创建一个异常并写入错误日志" + querystr));
                 return Content("如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
             }
         }
