@@ -39,14 +39,14 @@ namespace WeixingMVC.Controllers
                 echostr);
             if (verifyUrl != null)
             {
-                var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/1.txt"));
+                var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/App_Data/1.txt"));
                 fileStream.Write(Encoding.Default.GetBytes(verifyUrl), 0, Encoding.Default.GetByteCount(verifyUrl));
                 fileStream.Close();
                 return Content(verifyUrl); //返回解密后的随机字符串则表示验证通过
             }
             else
             {
-                var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/2.txt"));
+                var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/App_Data/2.txt"));
                 fileStream.Write(Encoding.Default.GetBytes(verifyUrl), 0, Encoding.Default.GetByteCount(verifyUrl));
                 fileStream.Close();
                 return Content("如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
