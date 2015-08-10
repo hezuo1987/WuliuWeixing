@@ -10,7 +10,7 @@ using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers;
 using Senparc.Weixin.QY.Entities;
 
-namespace Senparc.Weixin.MP.Sample.Controllers
+namespace WeixingMVC.Controllers
 {
     /// <summary>
     /// 企业号对接测试
@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Get(string msg_signature = "", string timestamp = "", string nonce = "", string echostr = "")
         {
             //return Content(echostr); //返回随机字符串则表示验证通过
-            var verifyUrl = QY.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce,
+            var verifyUrl = Senparc.Weixin.QY.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce,
                 echostr);
             if (verifyUrl != null)
             {
