@@ -27,6 +27,8 @@ namespace WeixingMVC.Controllers
 
         }
 
+
+
         /// <summary>
         /// 微信后台验证地址（使用Get），微信企业后台应用的“修改配置”的Url填写如：http://weixin.senparc.com/qy
         /// </summary>
