@@ -100,6 +100,26 @@ namespace WeixingMVC.Controllers
             if (messageHandler.RequestMessage == null)
             {
                 //验证不通过或接受信息有错误
+
+                string querystr = "\r\n";
+                Error error = new Error();
+                error.Message = "post对象";
+                error.HostName = Request.Url.Host;
+                error.StatusCode = 100;
+                error.Time = DateTime.Now;
+                error.User = Environment.UserName;
+                error.Type = "post ";
+
+                querystr += "messageHandler.RequestMessage.FromUserName:" + messageHandler.RequestMessage.FromUserName + ",messageHandler.ResponseMessage.ToUserName:"
+                    + messageHandler.ResponseMessage.ToUserName;
+
+                error.Detail = "yanzheng ，创建一个Elmah的Error对象并写错误日志 但没有Server Variables，cookie等信息" + querystr;
+                error.Source = "Page_Load";
+                Elmah.ErrorLog.Default.Log(error);
+
+                //创建一个异常并写入错误日志，无法自定义错误的类型
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new Exception("创建一个异常并写入错误日志" + querystr));
+
             }
 
             try
@@ -111,6 +131,26 @@ namespace WeixingMVC.Controllers
                 //测试时可开启，帮助跟踪数据
                 messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
                 messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+
+                string querystr = "\r\n";
+                Error error = new Error();
+                error.Message = "post对象";
+                error.HostName = Request.Url.Host;
+                error.StatusCode = 100;
+                error.Time = DateTime.Now;
+                error.User = Environment.UserName;
+                error.Type = "post ";
+
+                querystr += "messageHandler.RequestMessage.FromUserName:" + messageHandler.RequestMessage.FromUserName + ",messageHandler.ResponseMessage.ToUserName:"
+                    + messageHandler.ResponseMessage.ToUserName;
+
+                error.Detail = "THIS IS TEST  ，创建一个Elmah的Error对象并写错误日志 但没有Server Variables，cookie等信息" + querystr;
+                error.Source = "Page_Load";
+                Elmah.ErrorLog.Default.Log(error);
+
+                //创建一个异常并写入错误日志，无法自定义错误的类型
+                Elmah.ErrorSignal.FromCurrentContext().Raise(new Exception("创建一个异常并写入错误日志" + querystr));
+
 
                 //自动返回加密后结果
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
