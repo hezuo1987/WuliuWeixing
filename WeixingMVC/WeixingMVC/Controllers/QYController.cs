@@ -18,7 +18,8 @@ namespace WeixingMVC.Controllers
     /// </summary>
     public class QYController : Controller
     {
-        public static readonly string Token = "weixin";//与微信企业账号后台的Token设置保持一致，区分大小写。
+        
+		public static readonly string Token = "weixin";//与微信企业账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = "mXDemvu2UhlMgIldGhoiAW6epCQM1sb8CkRSWINWsvE";//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string CorpId = "wx5e0f73032fc9109b";//与微信企业账号后台的EncodingAESKey设置保持一致，区分大小写。
 
