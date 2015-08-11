@@ -101,7 +101,6 @@ namespace WeixingMVC.Controllers
             if (messageHandler.RequestMessage == null)
             {
                 //验证不通过或接受信息有错误
-
                 string querystr = "\r\n";
                 Error error = new Error();
                 error.Message = "post对象";
@@ -110,10 +109,6 @@ namespace WeixingMVC.Controllers
                 error.Time = DateTime.Now;
                 error.User = Environment.UserName;
                 error.Type = "post ";
-
-                querystr += "messageHandler.RequestMessage.FromUserName:" + messageHandler.RequestMessage.FromUserName + ",messageHandler.ResponseMessage.ToUserName:"
-                    + messageHandler.ResponseMessage.ToUserName;
-
                 error.Detail = "yanzheng ，创建一个Elmah的Error对象并写错误日志 但没有Server Variables，cookie等信息" + querystr;
                 error.Source = "Page_Load";
                 Elmah.ErrorLog.Default.Log(error);
