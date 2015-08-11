@@ -89,7 +89,7 @@ namespace WeixingMVC.Controllers
         [ActionName("Index")]
         public ActionResult Post(PostModel postModel)
         {
-            var maxRecordCount = 10;
+            var maxRecordCount = 0;
 
             postModel.Token = Token;
             postModel.EncodingAESKey = EncodingAESKey;
